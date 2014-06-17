@@ -89,3 +89,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+" vim-javascript
+let javascript_enable_domhtmlcss = 1
+let b:javascript_fold = 1
