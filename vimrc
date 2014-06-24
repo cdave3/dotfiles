@@ -64,6 +64,9 @@ set backspace=indent,eol,start
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
+" show line wrap (continuation)
+set showbreak=↪
+
 " code folding
 set foldenable
 set foldmethod=indent
