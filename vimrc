@@ -83,6 +83,14 @@ set laststatus=2
 " delimitMate brace completion
 let g:delimitMate_expand_cr = 1
 
+if executable('ag')
+  " use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in ctrlp for listing files
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 " ctrlp fuzzy finder file browser
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack
