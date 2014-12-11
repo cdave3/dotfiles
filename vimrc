@@ -106,4 +106,6 @@ let javascript_enable_domhtmlcss = 1
 let b:javascript_fold = 1
 
 " bufexplorer
-let g:bufExplorerSortBy='fullpath'   " Sort by full file path name
+let g:bufExplorerSortBy='fullpath'   " sort by full file path name
+cabbrev ls :BufExplorer
+
