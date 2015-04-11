@@ -1,13 +1,11 @@
-" set terminal to 256 color mode
-set t_Co=16
-
 " set character encoding
 set encoding=utf-8
 
 " turn on syntax highlighting
-syntax enable
+syntax on
 
-" dark bg colorscheme
+" solarized settings
+set t_Co=256
 set background=dark
 colorscheme solarized
 
