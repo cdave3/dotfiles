@@ -71,6 +71,10 @@ set foldmethod=indent
 set foldnestmax=10
 set foldlevel=99 " default to unfolded on file open
 
+" F12 - reload syntax highligting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
 " airline status line plugin
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 0
