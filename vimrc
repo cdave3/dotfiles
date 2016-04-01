@@ -124,7 +124,7 @@ set nobackup
 set noswapfile
 
 " remap jj to esc
-:imap jj <Esc>
+":imap jj <Esc>
 
 " allow backspacing over everything
 set backspace=indent,eol,start
