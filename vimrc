@@ -28,6 +28,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-scripts/autosession.vim'
@@ -39,6 +40,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'captbaritone/better-indent-support-for-php-with-html'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -60,13 +62,21 @@ filetype plugin indent on    " required
 " set character encoding
 set encoding=utf-8
 
-" turn on syntax highlighting
+" syntax highlighting
 syntax on
+syntax sync minlines=200
+set synmaxcol=200
+
+" show a vertical guide at column 150 to avoid long lines of code
+set colorcolumn=150
 
 " solarized settings
 set t_Co=256
 set background=dark
 colorscheme solarized
+
+" don't select line numbers when highlighting text with the mouse
+set mouse=a
 
 " highlighted search results
 set hlsearch
@@ -92,7 +102,7 @@ set textwidth=0
 " Do not wrap lines automatically
 set nowrap
 
-" Show line numbers by default
+" Show line numbers
 set number
 
 " Always show filename
@@ -161,7 +171,7 @@ endif
 " ctrlp fuzzy finder file browser
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)|tour$',
   \ 'file': '\v\.(exe|so|dll)$',
