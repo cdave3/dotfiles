@@ -77,6 +77,8 @@ colorscheme solarized
 
 " don't select line numbers when highlighting text with the mouse
 set mouse=a
+" yank text to the system clipboard (ctrl-p to paste it anywhere)
+set clipboard=unnamedplus
 
 " highlighted search results
 set hlsearch
