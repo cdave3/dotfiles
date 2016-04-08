@@ -101,8 +101,9 @@ set cindent
 " Linewidth to endless
 set textwidth=0
 
-" Do not wrap lines automatically
+" Do not wrap lines automatically, set text-width to 0 also
 set nowrap
+set tw=0
 
 " Show line numbers
 set number
@@ -142,12 +143,18 @@ set foldmethod=indent
 set foldnestmax=10
 set foldlevel=99 " default to unfolded on file open
 
+" toggle paste/nopaste
+:set pastetoggle=<f5>
+
+" gvim settings
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+
 " F12 - reload syntax highligting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
-
-" toggle paste/nopaste
-:set pastetoggle=<f5>
 
 " JSX syntax highlighting in non-jsx files
 let g:jsx_ext_required = 0
@@ -162,23 +169,23 @@ set laststatus=2
 " delimitMate brace completion
 " let g:delimitMate_expand_cr = 1
 
-if executable('ag')
-  " use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in ctrlp for listing files
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
 " ctrlp fuzzy finder file browser
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack
+if executable('ag')
+  " use ag over grep for searching files
+  " set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --path-to-agignore ~/.agignore --nocolor -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)|tour$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+" these two directives don't work with g:ctrlp_user_command, they are in ~/.agignore instead
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack,*/vendor/*,*/\.git/*
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)|tour$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
 
 " vim-javascript
 let javascript_enable_domhtmlcss = 1
