@@ -27,8 +27,7 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'junegunn/fzf'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-scripts/autosession.vim'
@@ -36,7 +35,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'lifepillar/vim-solarized8'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
@@ -70,10 +69,11 @@ set synmaxcol=200
 " show a vertical guide at column 150 to avoid long lines of code
 set colorcolumn=150
 
+" disable cursorline (slow as shit)
+set nocursorline
+
 " solarized settings
-set t_Co=256
-set background=dark
-colorscheme solarized
+colorscheme solarized8_dark
 
 " don't select line numbers when highlighting text with the mouse
 set mouse=a
@@ -124,9 +124,6 @@ set hidden
 set nobackup
 set noswapfile
 
-" remap jj to esc
-":imap jj <Esc>
-
 " allow backspacing over everything
 set backspace=indent,eol,start
 
@@ -166,19 +163,26 @@ let g:airline#extensions#tabline#enabled = 1
 " always show statusline
 set laststatus=2
 
+" fzf fuzzy finder customizations (make it behave like ctrlp)
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+nnoremap <c-p> :FZF<cr>
+
 " delimitMate brace completion
 " let g:delimitMate_expand_cr = 1
 
 " ctrlp fuzzy finder file browser
-if executable('ag')
+"if executable('ag')
   " use ag over grep for searching files
   " set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --path-to-agignore ~/.agignore --nocolor -g ""'
+"  let g:ctrlp_user_command = 'ag %s -l --path-to-agignore ~/.agignore --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+"  let g:ctrlp_use_caching = 0
+"endif
+"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
+"set runtimepath^=~/.vim/bundle/ctrlp.vim
 " these two directives don't work with g:ctrlp_user_command, they are in ~/.agignore instead
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack,*/vendor/*,*/\.git/*
 "let g:ctrlp_custom_ignore = {
