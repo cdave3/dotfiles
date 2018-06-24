@@ -73,6 +73,7 @@ set colorcolumn=150
 set nocursorline
 
 " solarized settings
+set termguicolors
 colorscheme solarized8_dark
 
 " don't select line numbers when highlighting text with the mouse
