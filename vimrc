@@ -40,6 +40,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'captbaritone/better-indent-support-for-php-with-html'
+Plugin 'phpactor/phpactor'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -65,6 +66,7 @@ set encoding=utf-8
 syntax on
 syntax sync minlines=200
 set synmaxcol=200
+set redrawtime=10000 "https://github.com/vim/vim/issues/2790
 
 " show a vertical guide at column 150 to avoid long lines of code
 set colorcolumn=150
@@ -74,7 +76,8 @@ set nocursorline
 
 " solarized settings
 set termguicolors
-colorscheme solarized8_dark
+set background=dark
+colorscheme solarized8
 
 " don't select line numbers when highlighting text with the mouse
 set mouse=a
