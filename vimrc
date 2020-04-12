@@ -1,63 +1,37 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+"auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-Plugin 'junegunn/fzf'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'vim-scripts/autosession.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'captbaritone/better-indent-support-for-php-with-html'
-Plugin 'phpactor/phpactor'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-
+call plug#begin()
+Plug 'junegunn/fzf'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/autosession.vim'
+Plug 'mileszs/ack.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'lifepillar/vim-solarized8'
+Plug 'dense-analysis/ale'
+Plug 'sheerun/vim-polyglot'
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'SirVer/ultisnips'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
+Plug 'phpactor/ncm2-phpactor', {'for': 'php'}
+Plug 'StanAngeloff/php.vim', {'for': 'php'}
+Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
+Plug 'jwalton512/vim-blade', {'for': 'php'}
+"Plug 'prettier/vim-prettier'
+call plug#end()
 
 " set character encoding
 set encoding=utf-8
@@ -145,27 +119,95 @@ set foldnestmax=10
 set foldlevel=99 " default to unfolded on file open
 
 " toggle paste/nopaste
-:set pastetoggle=<f5>
+set pastetoggle=<f5>
+
+" nvim, disable terminal timeout (when pressing esc)
+set nottimeout
 
 " gvim settings
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 
 " F12 - reload syntax highligting
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
+"noremap <F12> <Esc>:syntax sync fromstart<CR>
+"inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-" JSX syntax highlighting in non-jsx files
-let g:jsx_ext_required = 0
+" gutentags plugin
+let g:gutentags_ctags_exclude = ["*.min.js", "*.min.css", "build", "vendor", ".git", "node_modules", "*.vim/bundle/*"]
+
+" ncm2 plugin
+augroup ncm2
+  au!
+  autocmd BufEnter * call ncm2#enable_for_buffer()
+  au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
+  au User Ncm2PopupClose set completeopt=menuone
+augroup END
+
+" parameter expansion for selected entry via Enter
+inoremap <silent> <expr> <CR> (pumvisible() ? ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>")
+
+" cycle through completion entries with tab/shift+tab
+inoremap <expr> <TAB> pumvisible() ? "\<c-n>" : "\<TAB>"
+inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<TAB>"
+
+" ultisnips plugin
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+" PHP7
+let g:ultisnips_php_scalar_types = 1
 
 " airline status line plugin
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
-" always show statusline
-set laststatus=2
+let g:airline#extensions#ale#enabled = 1
+
+" ale syntax checker/highlighter plugin
+" disable linting while typing
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open=0
+let g:ale_set_quickfix=0
+" disable listing of errors at the bottom (default was 5)
+let g:ale_list_window_size = 0
+let g:ale_php_phpcbf_standard='PSR2'
+let g:ale_php_phpcs_standard='phpcs.xml.dist'
+let g:ale_php_phpmd_ruleset='phpmd.xml'
+let g:ale_fixers = {
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \ 'php': ['phpcbf', 'php_cs_fixer', 'remove_trailing_lines', 'trim_whitespace'],
+  \ 'javascript': ['prettier'],
+  \ 'css': ['prettier'],
+  \ 'scss': ['prettier'],
+  \}
+let g:ale_fix_on_save = 1
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
+
+
+" phpactor plugin: context-aware menu with all functions (ALT-m)
+nnoremap <m-m> :call phpactor#ContextMenu()<cr>
+nnoremap gd :call phpactor#GotoDefinition()<CR>
+nnoremap gr :call phpactor#FindReferences()<CR>
+
+" Extract method from selection
+vmap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+" extract variable
+vnoremap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
+nnoremap <silent><Leader>ee :call phpactor#ExtractExpression(v:false)<CR>
+" extract interface
+nnoremap <silent><Leader>rei :call phpactor#ClassInflect()<CR>
+let g:phpactor_executable = '~/.vim/plugged/phpactor/bin/phpactor'
+
 
 " fzf fuzzy finder customizations (make it behave like ctrlp)
 let g:fzf_action = {
@@ -174,26 +216,10 @@ let g:fzf_action = {
       \ }
 nnoremap <c-p> :FZF<cr>
 
-" delimitMate brace completion
-" let g:delimitMate_expand_cr = 1
-
-" ctrlp fuzzy finder file browser
-"if executable('ag')
-  " use ag over grep for searching files
-  " set grepprg=ag\ --nogroup\ --nocolor
-"  let g:ctrlp_user_command = 'ag %s -l --path-to-agignore ~/.agignore --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-"  let g:ctrlp_use_caching = 0
-"endif
-"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch'  }
-"set runtimepath^=~/.vim/bundle/ctrlp.vim
-" these two directives don't work with g:ctrlp_user_command, they are in ~/.agignore instead
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tgz,*.idx,*.pack,*/vendor/*,*/\.git/*
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]\.(git|hg|svn)|tour$',
-"  \ 'file': '\v\.(exe|so|dll)$',
-"  \ 'link': 'some_bad_symbolic_links',
-"  \ }
+" prettier (prettier is run via stylelint for css,less,scss files)
+"let g:prettier#autoformat = 0
+"let g:prettier#autoformat_config_present = 0
+"autocmd BufWritePre *.php,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.json,*.graphql,*.md,*.vue PrettierAsync
 
 " vim-javascript
 let javascript_enable_domhtmlcss = 1
@@ -202,4 +228,3 @@ let b:javascript_fold = 1
 " bufexplorer
 let g:bufExplorerSortBy='fullpath'   " sort by full file path name
 cabbrev ls :BufExplorer
-
