@@ -25,11 +25,12 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'SirVer/ultisnips'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-vdebug/vdebug'
 Plug 'phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
 Plug 'phpactor/ncm2-phpactor', {'for': 'php'}
 Plug 'StanAngeloff/php.vim', {'for': 'php'}
-Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
 Plug 'jwalton512/vim-blade', {'for': 'php'}
+"Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
 "Plug 'prettier/vim-prettier'
 call plug#end()
 
@@ -192,6 +193,17 @@ let g:ale_sign_warning = '⚠️'
 highlight ALEErrorSign ctermbg=NONE ctermfg=red
 highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 
+" vdebug
+let g:vdebug_options = {}
+let g:vdebug_options["port"] = 9000
+let g:vdebug_options["path_maps"] = {
+    \ "/home/vagrant/admin.directmail.io": "/home/dave/Projects/directmail.io/admin.directmail.io",
+    \ "/home/vagrant/util.directmail.io": "/home/dave/Projects/directmail.io/util.directmail.io",
+    \ "/home/vagrant/internal.directmail.io": "/home/dave/Projects/directmail.io/internal.directmail.io",
+    \ "/home/vagrant/landing-page.directmail.io": "/home/dave/Projects/directmail.io/landing-page.directmail.io",
+    \ "/home/vagrant/api.directmail.io": "/home/dave/Projects/directmail.io/api.directmail.io",
+\}
+let g:vdebug_options["server"] = ''
 
 
 " phpactor plugin: context-aware menu with all functions (ALT-m)
