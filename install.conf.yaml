@@ -1,0 +1,21 @@
+- defaults:
+    link:
+      force: true
+      relink: true
+      create: true
+
+- clean: ['~']
+
+- link:
+    ~/.agignore: agignore
+    ~/.vim: vim
+    ~/.vimrc: vimrc
+    ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.gitconfig: gitconfig
+
+- create:
+    - ~/downloads
+    - ~/.vim/undo-history
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
