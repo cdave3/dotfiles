@@ -116,12 +116,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+# Config
 eval `dircolors /home/dave/.dir_colors/dircolors`
 
+
+# Programs
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
+# Terminal
 eval "$(starship init bash)"
 
 function settitle(){
@@ -129,3 +134,11 @@ function settitle(){
     echo -ne "\033]0;$title\007\c"
 }
 export -f settitle
+
+# Aliases
+alias timestamp='date +%s'
+alias ls='ls -l --color=auto --group-directories-first'
+alias ack='ack-grep'
+alias vup='vagrant up'
+alias vhalt='vagrant halt'
+alias vssh='vagrant ssh'

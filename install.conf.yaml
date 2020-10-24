@@ -12,7 +12,7 @@
   ~/.vim: vim
   ~/.vimrc: vimrc
   ~/.config/kitty/kitty.conf: kitty.conf
-  #~/.gitconfig: gitconfig
+  ~/.gitconfig: gitconfig
 
 - create:
   - ~/.dircolors/dir_colors
