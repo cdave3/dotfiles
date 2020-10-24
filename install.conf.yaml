@@ -1,18 +1,18 @@
 - defaults:
-  link:
-    force: true
-    relink: true
-    create: true
+    link:
+      force: true
+      relink: true
+      create: true
 
 - clean: ['~']
 
 - link:
-  ~/.bashrc: bashrc
-  ~/.agignore: agignore
-  ~/.vim: vim
-  ~/.vimrc: vimrc
-  ~/.config/kitty/kitty.conf: kitty.conf
-  ~/.gitconfig: gitconfig
+    ~/.bashrc: bashrc
+    ~/.agignore: agignore
+    ~/.vim: vim
+    ~/.vimrc: vimrc
+    ~/.config/kitty/kitty.conf: kitty.conf
+    ~/.gitconfig: gitconfig
 
 - create:
   - ~/.dircolors/dir_colors
