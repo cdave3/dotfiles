@@ -7,11 +7,12 @@
 - clean: ['~']
 
 - link:
+    ~/.bashrc: bashrc
     ~/.agignore: agignore
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.config/kitty/kitty.conf: kitty.conf
-    ~/.gitconfig: gitconfig
+    #~/.gitconfig: gitconfig
 
 - create:
     - ~/downloads

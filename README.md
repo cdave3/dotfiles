@@ -1,1 +1,1 @@
-Be sure to create the folder ".dotfiles" with the dot in front of it!
+Dotbot setup instructions can be found [here.](https://github.com/anishathalye/dotbot).
