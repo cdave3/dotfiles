@@ -1,0 +1,9 @@
+[user]
+	email = dave.hennigar@gmail.com
+	name = Dave Hennigar
+[diff]
+	tool = vimdiff
+[alias]
+	d = difftool --no-prompt
+[core]
+	editor = vim
