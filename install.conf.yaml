@@ -15,7 +15,7 @@
   #~/.gitconfig: gitconfig
 
 - create:
-  #- ~/downloads
+  - ~/.dircolors/dir_colors
   - ~/.vim/undo-history
 
 - shell:
