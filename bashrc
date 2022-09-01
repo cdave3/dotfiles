@@ -118,7 +118,7 @@ fi
 
 
 # Config
-eval `dircolors /home/dave/.dir_colors/dircolors`
+eval `dircolors ~/.dircolors`
 
 
 # Programs
